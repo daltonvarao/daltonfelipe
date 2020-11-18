@@ -9,7 +9,7 @@ export default function connectDatabase() {
 
   const db = connect(
     process.env.NODE_ENV === "production"
-      ? process.env.mongodbURI
+      ? process.env.MONGO_URL
       : "mongodb://localhost:27017/portfolio",
     {
       useUnifiedTopology: true,

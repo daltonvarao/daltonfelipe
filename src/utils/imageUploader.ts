@@ -1,8 +1,8 @@
 import cloudinary from "cloudinary";
 
-const api_key = process.env.api_key;
-const api_secret = process.env.api_secret;
-const cloud_name = process.env.cloud_name;
+const api_key = process.env.CLOUDINARY_API_KEY;
+const api_secret = process.env.CLOUDINARY_API_SECRET;
+const cloud_name = process.env.CLOUDINARY_NAME;
 
 cloudinary.v2.config({
   api_key,
