@@ -3,7 +3,8 @@ import React, { useState, KeyboardEvent, ChangeEvent, FormEvent } from "react";
 import { FiImage, FiRefreshCw, FiTrash } from "react-icons/fi";
 
 import Header from "../../components/Header";
-import api from "../../services/api";
+
+import axios from "axios";
 
 import {
   Container,
@@ -74,7 +75,10 @@ const Create: React.FC = () => {
     data.append("file", file);
 
     try {
-      const response = await api.post("/projetos", data);
+      const response = await axios.post(
+        `${process.env.API_URL}/projetos`,
+        data
+      );
 
       console.log(response.data);
 
