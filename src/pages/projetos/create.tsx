@@ -86,7 +86,7 @@ const Create: React.FC = () => {
 
       router.replace("/projetos");
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
     }
   }
 
