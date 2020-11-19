@@ -21,6 +21,7 @@ import {
   RemoveImgButton,
   ButtonLink,
 } from "../../styles/projetos";
+import api from "../../services/api";
 
 interface TechProps {
   name: string;
@@ -75,10 +76,7 @@ const Create: React.FC = () => {
     data.append("file", file);
 
     try {
-      const response = await axios.post(
-        "https://daltonfelipe.vercel.app/api/projetos",
-        data
-      );
+      const response = await api.post("projetos", data);
 
       console.log(response.data);
 
