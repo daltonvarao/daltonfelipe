@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { NextPage } from "next";
+import React from "react";
+import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { IoMdEye } from "react-icons/io";
 import { SiGithub } from "react-icons/si";
-import api from "../../services/api";
 
 import Header from "../../components/Header";
+
 import {
   Container,
   ProjectActions,
@@ -17,7 +17,10 @@ import {
   ProjectTech,
   ProjectTechs,
 } from "../../styles/projetos";
+
 import { Title } from "../../styles";
+
+import api from "../../services/api";
 
 interface Project {
   _id: string;
@@ -60,11 +63,22 @@ const Project: React.FC<ProjectProps> = ({ data }) => {
   );
 };
 
-interface Props {
-  projetos?: Project[];
-}
+export const getStaticProps: GetStaticProps = async (context) => {
+  const response = await api.get("/projetos");
 
-const Projetos: NextPage<Props> = ({ projetos }) => {
+  const projetos: Project[] = response.data;
+
+  return {
+    props: {
+      projetos,
+    },
+    revalidate: 20,
+  };
+};
+
+function Projetos({
+  projetos,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   if (!projetos) {
     return <div className="loader" />;
   }
@@ -82,12 +96,6 @@ const Projetos: NextPage<Props> = ({ projetos }) => {
       </Projects>
     </Container>
   );
-};
-
-Projetos.getInitialProps = async (ctx) => {
-  const { data: projetos } = await api.get("/projetos");
-
-  return { projetos };
-};
+}
 
 export default Projetos;
