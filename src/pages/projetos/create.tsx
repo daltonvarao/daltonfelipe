@@ -76,7 +76,7 @@ const Create: React.FC = () => {
     try {
       const response = await api.post("/projetos", data);
 
-      console.log(response);
+      console.log(response.data);
 
       alert("Projeto cadastrado");
 
