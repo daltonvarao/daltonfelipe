@@ -6,6 +6,7 @@ export const Container = styled.div`
   max-width: 860px;
   margin: 0 auto;
   margin-bottom: 2rem;
+  position: relative;
 `;
 
 export const Input = styled.input`

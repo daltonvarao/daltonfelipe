@@ -48,8 +48,21 @@ const Create: React.FC = () => {
 
   const router = useRouter();
 
+  function validateForm() {
+    if (
+      !(file && name && techs && description && name && demoUrl && githubUrl)
+    ) {
+      alert("Todos os campos são obrigatórios");
+      return false;
+    }
+
+    return true;
+  }
+
   async function handleSubmit(ev: FormEvent) {
     ev.preventDefault();
+
+    if (!validateForm()) return;
 
     const data = new FormData();
 
@@ -61,7 +74,9 @@ const Create: React.FC = () => {
     data.append("file", file);
 
     try {
-      await api.post("/projetos", data);
+      const response = await api.post("/projetos", data);
+
+      console.log(response);
 
       alert("Projeto cadastrado");
 
@@ -114,14 +129,12 @@ const Create: React.FC = () => {
         onChange={(ev) => setName(ev.target.value)}
         placeholder="Name"
       />
-
       <Label htmlFor="name">Description</Label>
       <Input
         value={description}
         onChange={(ev) => setDescription(ev.target.value)}
         placeholder="Description"
       />
-
       <Label htmlFor="name">Techs</Label>
       <Input
         placeholder="Techs"
@@ -129,13 +142,11 @@ const Create: React.FC = () => {
         onChange={(ev) => setTech(ev.target.value)}
         onKeyDown={handleKeyPressTech}
       />
-
       {techs.length > 1 && (
         <ButtonContainer>
           <ButtonLink onClick={() => setTechs([])}>Remove all</ButtonLink>
         </ButtonContainer>
       )}
-
       {techs.length > 0 && (
         <TechList>
           {techs.map((item, index) => (
@@ -147,21 +158,18 @@ const Create: React.FC = () => {
           ))}
         </TechList>
       )}
-
       <Label htmlFor="name">Demo URL</Label>
       <Input
         value={demoUrl}
         onChange={(ev) => setDemoUrl(ev.target.value)}
         placeholder="Demo Url"
       />
-
       <Label htmlFor="name">Github URL</Label>
       <Input
         value={githubUrl}
         onChange={(ev) => setGithubUrl(ev.target.value)}
         placeholder="Github Url"
       />
-
       <Label htmlFor="img">Add imagem</Label>
       <input hidden type="file" onChange={handleSelectImage} id="img" />
       <PreviewImageContainer>
@@ -185,7 +193,6 @@ const Create: React.FC = () => {
           </>
         )}
       </PreviewImageContainer>
-
       <Button onClick={handleSubmit}>Salvar</Button>
     </Container>
   );
