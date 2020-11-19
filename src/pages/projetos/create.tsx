@@ -76,7 +76,7 @@ const Create: React.FC = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.API_URL}/projetos`,
+        "https://daltonfelipe.vercel.app/api/projetos",
         data
       );
 
