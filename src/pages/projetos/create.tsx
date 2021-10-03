@@ -47,6 +47,7 @@ const Create: React.FC = () => {
 
   const [previewImage, setPreviewImage] = useState("");
   const [file, setFile] = useState<File>();
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
